@@ -17,7 +17,7 @@ $lastname =  $_GET['lastname'];
 
 $servername = "127.0.0.1";
 $username = "root";
-$password = "perfectmint299";
+$password = "password";
 
 // Create connection
 $conn = mysql_connect($servername, $username, $password);

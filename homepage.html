@@ -1,33 +1,29 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<title>My Movie Database (MyMDb)</title>
-		<meta charset="utf-8" />
 
-		<!-- Link to your CSS file that you should edit -->
-		<link href="bacon.css" type="text/css" rel="stylesheet" />
-	</head>
+<head>
+    <title>My Movie Database (MyMDb)</title>
+    <meta charset="utf-8" />
+    <!-- Link to your CSS file that you should edit -->
+    <link href="bacon.css" type="text/css" rel="stylesheet" /> </head>
 
-	<body>
-		<div id="frame">
+<body>
+    <div id="frame">
+        <div id="main">
+            <h1>The One Degree of Kevin Bacon</h1>
+            <p>Type in an actor's name to see if he/she was ever in a movie with Kevin Bacon!</p>
+            <form action="1degree.php" method="get">
+                <fieldset>
+                    <div>
+                        <input name="firstname" type="text" size="12" placeholder="first name" autofocus="autofocus" />
+                        <input name="lastname" type="text" size="12" placeholder="last name" />
+                        <input type="submit" value="go" /> </div>
+                </fieldset>
+            </form>
+        </div>
+        <!-- end of #main div -->
+    </div>
+    <!-- end of #frame div -->
+</body>
 
-			<div id="main">
-				<h1>The One Degree of Kevin Bacon</h1>
-				<p>Type in an actor's name to see if he/she was ever in a movie with Kevin Bacon!</p>
-				
-				<form action="1degree.php" method="get">
-					<fieldset>
-						<legend>All movies</legend>
-						<div>
-							<input name="firstname" type="text" size="12" placeholder="first name" autofocus="autofocus" /> 
-							<input name="lastname" type="text" size="12" placeholder="last name" /> 
-							<input type="submit" value="go" />
-						</div>
-					</fieldset>
-				</form>
-
-			</div> <!-- end of #main div -->
-		
-		</div> <!-- end of #frame div -->
-	</body>
 </html>
