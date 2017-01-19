@@ -1,28 +1,33 @@
 <!DOCTYPE html>
-<html lang="">
+<html>
+	<head>
+		<title>My Movie Database (MyMDb)</title>
+		<meta charset="utf-8" />
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Everyone Loves Bacon</title>
-</head>
+		<!-- Link to your CSS file that you should edit -->
+		<link href="bacon.css" type="text/css" rel="stylesheet" />
+	</head>
 
-<body>
-    <p>Possible Searches</p>
-    <h1>
-    <form> 
-         One Degree of Seperation Search: <input type="text" name="Actors Name">
-        <br>
-         Two Degrees of Seperation Search: <input type="text" name="Actors Name">
-        <br>
-         One Genre Search: <input type="text" name="Actors Name">
-        <br>
-        Two Genre Search: <input type="text" name="Actors Name">
-        <br>
-         Actors Who Directred a Movie: <input type="text" name="Actors Name">
-        <br>
-         Common Search: <input type="text" name="Actors Name">
-        <br>
-    </form> 
-</hi>
+	<body>
+		<div id="frame">
+
+			<div id="main">
+				<h1>The One Degree of Kevin Bacon</h1>
+				<p>Type in an actor's name to see if he/she was ever in a movie with Kevin Bacon!</p>
+				
+				<form action="1degree.php" method="get">
+					<fieldset>
+						<legend>All movies</legend>
+						<div>
+							<input name="firstname" type="text" size="12" placeholder="first name" autofocus="autofocus" /> 
+							<input name="lastname" type="text" size="12" placeholder="last name" /> 
+							<input type="submit" value="go" />
+						</div>
+					</fieldset>
+				</form>
+
+			</div> <!-- end of #main div -->
+		
+		</div> <!-- end of #frame div -->
+	</body>
 </html>
