@@ -20,12 +20,16 @@
 //            $password = "root";
 //            $dbname = "myDB";
 
-            // Create connection
-            $conn = new mysqli($servername, $username, $password, $dbname);
-            // Check connection
-            if ($conn->connect_error) {
-                die("Connection failed: " . $conn->connect_error);  
-            } 
+//            // Create connection
+//            $conn = new mysqli($servername, $username, $password, $dbname);
+//            // Check connection
+//            if ($conn->connect_error) {
+//                die("Connection failed: " . $conn->connect_error);  
+//            } 
+        try {
+                $conn = new PDO("mysql:host=" . $servername . ";dbname=" . $dbname, $username, $password);
+                $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                // function below returns actor_id, from 1degree.php
         
             $sql = "SELECT genre , count(*) as MaxCount
             FROM movies_genres
@@ -37,21 +41,27 @@
                 order by count(genre) desc
                 LIMIT 1)";
         
-            $result = $conn->query($sql);
+            $stmt = $conn->prepare($sql);
+            $stmt->execute();
+            $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
 
         
             echo '<table><th>Genre</th><th>#</th></tr>';
-            if ($result->num_rows > 0) {
+            $index = 0;
                 // output data of each row
                 
-                while($row = $result->fetch_assoc()) {
+            while($row = $stmt->fetch()) {
                     echo '<tr><td>' . $row["genre"]. '</td><td>' . $row["MaxCount"] . '</td></tr>';
+                    $index++;
                 }
-            } else {
+            if($index == 0){
                 echo '<tr><td> No results</td><td> No results</td></tr>';
             }
+           } catch (PDOException $e) {
+                die('Database connection failed: ' . $e->getMessage());
+            }
             echo '</table>';
-            $conn->close();
+            $conn=null;
 ?>
     </div>
 </body>

@@ -13,7 +13,6 @@
         <a href="homepage.php"> </div>
     <div id="content">
         <!--            Style for id=content taken from bacon.css-->
-        
         <?php
         include 'common.php';
 //        $servername = "localhost:3306";
@@ -22,11 +21,9 @@
 //        $dbname = "myDB";
 
         // Create connection
-        $conn = new mysqli($servername, $username, $password, $dbname);
-        // Check connection
-        if ($conn->connect_error) {
-            die("Connection failed: " . $conn->connect_error);
-        } 
+        try {
+                $conn = new PDO("mysql:host=" . $servername . ";dbname=" . $dbname, $username, $password);
+                $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         
         $genre = $_GET["genre"];
         //N E E D T O S T I L L I M P L E M E N T
@@ -43,24 +40,30 @@
         LIMIT 1);
         ";
         
-        $result = $conn->query($sql);
+        $stmt = $conn->prepare($sql);
+        $stmt->execute();
+        $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
 
-        if ($result->num_rows > 0) {
-            echo '<table><th>Name</th><th>Max num of movies in Genre</th>';
+        $index =0;
+        echo '<table><th>Name</th><th>Max num of movies in Genre</th>';
         // output data of each row
-            while($row = $result->fetch_assoc()) {
-                echo '<tr><td>' . $row["first_name"] . ' ' .$row["last_name"] . '</td><td>' . $row["MaxNum"] . 
+        while($row = $stmt->fetch()) {
+            echo '<tr><td>' . $row["first_name"] . ' ' .$row["last_name"] . '</td><td>' . $row["MaxNum"] . 
                                        '</td></tr>';
-                }
-            }
-        else {
-            echo "There are no results currently with the genre: ". $genre;
-            }
+            $index++;
+        }
+        
+        if($index == 0){
+             echo '<tr><td> No results</td><td> No results</td></tr>';
+        }
+      } catch (PDOException $e) {
+            die('Database connection failed: ' . $e->getMessage());
+        }  
         echo '</table>';
-            
-        $conn->close();
+        $conn = null;
         ?>
-        <p>A table showing actors with the max number of movies for a specified genre.</p>
+            <p>A table showing actors with the max number of movies for a specified genre.</p>
     </div>
 </body>
+
 </html>

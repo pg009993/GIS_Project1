@@ -1,9 +1,9 @@
 <?php
 // lines below create variables for server name, db, username, password
 $servername = 'localhost:3306';
-$dbname = 'myDB';
+$dbname = 'IMDB';
 $username = 'root';
-$password = 'root';
+$password = 'perfectmint299';
 try {
     $conn = new PDO("mysql:host=" . $GLOBALS['servername'] . ";dbname=" . $GLOBALS['dbname'], $GLOBALS['username'], $GLOBALS['password']);
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);

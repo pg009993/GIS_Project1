@@ -35,12 +35,16 @@
                 $stmt = $conn->prepare($query);
                 $stmt->execute();
                 $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+                //$numberOfRows = $stmt->fetch(PDO::FETCH_NUM);
                 echo '<table><tr><th>#</th><th>Title</th><th>Year</th></tr>';
                 $index = 1;
                 // loop below prints out results in html
-                while ($row = $stmt->fetch()) {
-                    echo '<tr><td>' . $index . '</td><td>' . $row["name"] . '</td><td>' . $row['year'] . '</td></tr>';
-                    $index++;
+                    while ($row = $stmt->fetch()) {
+                      echo '<tr><td>' . $index . '</td><td>' . $row["name"] . '</td><td>' . $row['year'] . '</td></tr>';
+                        $index++;
+                    }
+                if($index==1){
+                    echo 'No results for ' . $firstname. ' ' . $lastname . '.';
                 }
                 echo '</table>';
             } catch (PDOException $e) {
