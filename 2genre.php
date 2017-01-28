@@ -15,10 +15,11 @@
         <!--            Style for id=content taken from bacon.css-->
         
         <?php
-        $servername = "localhost:3306";
-        $username = "root";
-        $password = "root";
-        $dbname = "myDB";
+        include 'common.php';
+//        $servername = "localhost:3306";
+//        $username = "root";
+//        $password = "root";
+//        $dbname = "myDB";
 
         // Create connection
         $conn = new mysqli($servername, $username, $password, $dbname);
@@ -27,25 +28,39 @@
             die("Connection failed: " . $conn->connect_error);
         } 
         
-    
+        $genre = $_GET["genre"];
         //N E E D T O S T I L L I M P L E M E N T
-        $sql = "SELECT * FROM directors_genres ";
+        $sql = "select a.first_name, a.last_name, count(*) as MaxNum
+        from actors a, roles r, movies m, movies_genres mg
+        where m.id=mg.movie_id AND mg.genre='". $genre."' AND
+        r.actor_id=a.id AND r.movie_id=m.id
+        GROUP BY first_name, last_name
+        HAVING MaxNum= (select count(r.actor_id) actorid
+        from actors a, roles r, movies m, movies_genres mg
+        where m.id=mg.movie_id AND mg.genre='" . $genre . "' AND r.actor_id=a.id AND r.movie_id=m.id
+        GROUP BY r.actor_id
+        ORDER BY actorid DESC
+        LIMIT 1);
+        ";
         
         $result = $conn->query($sql);
 
         if ($result->num_rows > 0) {
+            echo '<table><th>Name</th><th>Max num of movies in Genre</th>';
         // output data of each row
             while($row = $result->fetch_assoc()) {
-                echo $row["genre"]. " " . "<br>";
+                echo '<tr><td>' . $row["first_name"] . ' ' .$row["last_name"] . '</td><td>' . $row["MaxNum"] . 
+                                       '</td></tr>';
                 }
-            } 
-        else {
-            echo "0 results";
             }
+        else {
+            echo "There are no results currently with the genre: ". $genre;
+            }
+        echo '</table>';
             
         $conn->close();
         ?>
-        <p>A table showing actors who were also directors.</p>
+        <p>A table showing actors with the max number of movies for a specified genre.</p>
     </div>
 </body>
 </html>
