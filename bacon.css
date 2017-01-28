@@ -20,6 +20,27 @@ fieldset{
     margin: auto; 
 }
 
+/*Following style enables "zebra style" table*/
+tr:nth-child(even){
+    background-color: lightgray;
+}
 
+td {
+    text-align: center;
+}
+
+/*Following style gives body a background color and width*/
+#content {
+    position: absolute;
+    left: 10%;
+    width: 80%;
+    background-color: #DAD9D4;
+}
+
+/*Following style ensures border collapse for table*/
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
 
 

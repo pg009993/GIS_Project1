@@ -16,7 +16,7 @@
             <h1>Results for <?php echo $_GET['firstname'] . ' ' . $_GET['lastname']; ?> (one degree of Kevin Bacon) </h1>
             <?php
 //            Line below connects to database, done in 1degree.php
-            include '1degree.php';
+            include 'common.php';
 //            Lines below set user input to variables $firstname and $lastname
             $firstname = $_GET['firstname'];
             $lastname = $_GET['lastname'];
