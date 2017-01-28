@@ -39,4 +39,6 @@ function get_actor_id($firstname, $lastname) {
         
     $conn = null;
 }
+
+
 ?>

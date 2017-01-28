@@ -56,9 +56,28 @@
                     <fieldset>
                         <legend>Two Genre</legend>
                         <div>
-                            <input name="firstname" type="text" size="12" placeholder="first name" /> 
-                            <input name="lastname" type="text" size="12" placeholder="last name" /> 
-                            <input type="submit" value="go" />
+                            <select name="genre">
+                            <option value="">Select a Genre</option>
+                                <option value="Action">Action</option>
+                                <option value="Adventure">Adventure</option>
+                                <option value="Animation">Animation</option>
+                                <option value="Comedy">Comedy</option>
+                                <option value="Crime">Crime</option>
+                                <option value="Drama">Drama</option>
+                                <option value="Family">Family</option>
+                                <option value="Fantasy">Fantasy</option>
+                                <option value="Forror">Horror</option>
+                                <option value="Music">Music</option>
+                                <option value="Musical">Musical</option>
+                                <option value="Mystery">Mystery</option>
+                                <option value="Romance">Romace</option>
+                                <option value="Sci-fi">Sci-Fi</option>
+                                <option value="Thriller">Thriller</option>
+                                <option value="War">War</option>
+                                
+                            
+                            </select> 
+                            <input type="submit" value="Submit" />
                         </div>
                     </fieldset>
                 </form>
@@ -73,16 +92,7 @@
                     </fieldset>
                 </form>
                 <br>
-                <!-- display any common code that is shared between pages--> 
-                 <form action="common.php" method="get">
-                    <fieldset>
-                        <legend>Common Code</legend>
-                        <div>
-                            <input type="submit" value="Show Results" />
-                        </div>
-                    </fieldset>
-                </form>
-            
+              
             </div> <!-- end of #main div -->
 
         </div> <!-- end of #frame div -->
