@@ -12,12 +12,15 @@
         <div id="frame">
             <div id="banner">
 <!--                This div tag uses style from css file with id=banner-->
-                <a href="index.php"></a>
+                    <a href="index.php"><img src="mymdb.png" alt="banner logo" /></a>
             Database
             </div>
 
             <div id="main">
                 <!-- form to search for movies where a given actor was with Kevin Bacon-->
+                <h1>The Six Degrees of Kevin Bacon</h1>
+                <p>Kevin Bacon is everywhere!</p>
+                <p><img src="kevin_bacon.jpg" alt="Kevin Bacon" /></p>
                 <form action="1degree.php" method="get">
                     <fieldset>
                         <legend>One Degree Of Seperation From Kevin Bacon</legend>
