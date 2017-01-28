@@ -30,11 +30,11 @@
             $sql = "SELECT genre , count(*) as MaxCount
             FROM movies_genres
             GROUP BY genre
-            HAVING count(*) = 
-                (select count(*) 
+            HAVING count(genre) = 
+                (select count(genre) 
                 from movies_genres
                 group by genre 
-                order by count(*) desc
+                order by count(genre) desc
                 LIMIT 1)";
         
             $result = $conn->query($sql);
