@@ -69,7 +69,7 @@
                                 <option value="Drama">Drama</option>
                                 <option value="Family">Family</option>
                                 <option value="Fantasy">Fantasy</option>
-                                <option value="Forror">Horror</option>
+                                <option value="Horror">Horror</option>
                                 <option value="Music">Music</option>
                                 <option value="Musical">Musical</option>
                                 <option value="Mystery">Mystery</option>
