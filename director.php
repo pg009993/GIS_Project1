@@ -37,17 +37,17 @@
         $stmt = $conn->prepare($sql);
             $stmt->execute();
             $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
-
+            $numRows = $stmt->rowCount();
+            if($numRows > 0){
         echo '<table><th>Directors that are actors</th>';
-        $index = 0;
             // output data of each row
             while($row = $stmt->fetch()) {  
                 echo '<tr><td>'. $row["first_name"].' ' . $row["last_name"]. "</td></tr>";
-                $index++;
             }
-         if($index == 0) {
-            echo "0 results";   
-        }
+            echo '</table>';  
+        } else{
+                echo 'No directors are also actors';
+            }
         } catch (PDOException $e) {
             die('Database connection failed: ' . $e->getMessage());
         }

@@ -44,24 +44,24 @@
             $stmt = $conn->prepare($sql);
             $stmt->execute();
             $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+            $numRows = $stmt->rowCount();
 
-        
+            //echo $numRows;
+            
+            if($numRows > 0){
             echo '<table><th>Genre</th><th>#</th></tr>';
-            $index = 0;
-                // output data of each row
-                
+                // output data of each row  
             while($row = $stmt->fetch()) {
                     echo '<tr><td>' . $row["genre"]. '</td><td>' . $row["MaxCount"] . '</td></tr>';
-                    $index++;
                 }
-            if($index == 0){
-                echo '<tr><td> No results</td><td> No results</td></tr>';
+            echo '</table>';
+            }else{
+                echo 'No results';
             }
            } catch (PDOException $e) {
                 die('Database connection failed: ' . $e->getMessage());
             }
-            echo '</table>';
-            $conn=null;
+            $conn = null;
 ?>
     </div>
 </body>

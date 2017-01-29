@@ -36,6 +36,9 @@
                 $stmt->execute();
                 $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
                 //$numberOfRows = $stmt->fetch(PDO::FETCH_NUM);
+                $numRows = $stmt->rowCount();
+                
+                if($numRows > 0){
                 echo '<table><tr><th>#</th><th>Title</th><th>Year</th></tr>';
                 $index = 1;
                 // loop below prints out results in html
@@ -43,16 +46,18 @@
                       echo '<tr><td>' . $index . '</td><td>' . $row["name"] . '</td><td>' . $row['year'] . '</td></tr>';
                         $index++;
                     }
-                if($index==1){
+                 echo '</table>';
+                echo '<p>A table showing movies that this actor has starred in that also starred Kevin Bacon.</p>';
+                } else{
                     echo 'No results for ' . $firstname. ' ' . $lastname . '.';
                 }
-                echo '</table>';
+               
             } catch (PDOException $e) {
                 die('Database connection failed: ' . $e->getMessage());
             }
             $conn = null;
             ?>
-            <p>A table showing movies that this actor has starred in that also starred Kevin Bacon.</p>
+
         </div>
     </body>
 </html>

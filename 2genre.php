@@ -43,19 +43,19 @@
         $stmt = $conn->prepare($sql);
         $stmt->execute();
         $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
-
-        $index =0;
+        $numRows = $stmt->rowCount(); 
+        if($numRows > 0){
         echo '<table><th>Name</th><th>Max num of movies in Genre</th>';
         // output data of each row
         while($row = $stmt->fetch()) {
             echo '<tr><td>' . $row["first_name"] . ' ' .$row["last_name"] . '</td><td>' . $row["MaxNum"] . 
                                        '</td></tr>';
-            $index++;
+        }
+        echo '</table>';
+        }else{
+            echo 'No results found for this genre: ' . $genre;
         }
         
-        if($index == 0){
-             echo '<tr><td> No results</td><td> No results</td></tr>';
-        }
       } catch (PDOException $e) {
             die('Database connection failed: ' . $e->getMessage());
         }  
