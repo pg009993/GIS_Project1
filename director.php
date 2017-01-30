@@ -12,6 +12,7 @@
         <!--            Same as index.php file, banner style taken from bacon.css-->
         <a href="homepage.php"> </div>
     <div id="content">
+        <h1>Directors also Actors?</h1>
         <!--            Style for id=content taken from bacon.css-->
         <?php
         include 'common.php';

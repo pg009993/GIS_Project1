@@ -12,6 +12,7 @@
         <!--            Same as index.php file, banner style taken from bacon.css-->
         <a href="homepage.php"> </div>
     <div id="content">
+        <h1> Genres with max number of movies.</h1>
         <!--            Style for id=content taken from bacon.css-->
         <?php
         include 'common.php';
@@ -29,8 +30,9 @@
         try {
                 $conn = new PDO("mysql:host=" . $servername . ";dbname=" . $dbname, $username, $password);
                 $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                // function below returns actor_id, from 1degree.php
-        
+            // select genres having the most number of movies.
+            // this query first grabs highest number of movies,
+            // then selects the genre(s) with that number of movies.
             $sql = "SELECT genre , count(*) as MaxCount
             FROM movies_genres
             GROUP BY genre

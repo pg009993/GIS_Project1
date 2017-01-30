@@ -16,7 +16,7 @@
             Database
             </div>
 
-            <div id="main">
+            <div id="main" style="background-color: aliceblue; margin: 0px 12.5%;">
                 <!-- form to search for movies where a given actor was with Kevin Bacon-->
                 <h1>The Six Degrees of Kevin Bacon</h1>
                 <p>Kevin Bacon is everywhere!</p>

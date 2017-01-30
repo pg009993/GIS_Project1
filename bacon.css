@@ -13,6 +13,13 @@ legend {
     text-align: left;
 }
 
+
+.notice-success {
+  background-color: cyan;
+    margin-left: 
+}
+
+
 fieldset{
     width: 320px;
     padding: 10px;

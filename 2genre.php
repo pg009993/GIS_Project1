@@ -26,6 +26,7 @@
                 $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         
         $genre = $_GET["genre"];
+        echo '<h1>2Genre: Actors with max number of movies in a specific genre: '. $genre . '</h1>';
         //N E E D T O S T I L L I M P L E M E N T
         $sql = "select a.first_name, a.last_name, count(*) as MaxNum
         from actors a, roles r, movies m, movies_genres mg

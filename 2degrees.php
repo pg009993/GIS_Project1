@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>One Degree Of Seperation</title>
+    <title>Two Degrees Of Seperation</title>
     <meta charset="utf-8" />
     <!-- Link to your CSS file that you should edit -->
     <link href="bacon.css" type="text/css" rel="stylesheet" /> </head>
@@ -29,7 +29,8 @@
                     echo "Actor " . $firstname . " " . $lastname . " not found";
                     exit;
                 }
-                // query below returns list of movies in which Kevin Bacon and other actor has starred in
+                // this query looks does 1st degree of separation search on all of the actors who worked with kevin bacon
+                // and it also queries all people whose movies intersect with the given actor from the _GET method to get the second degree of separation.
                 $query = "select distinct a1.first_name, a1.last_name, m.name, m.year
                 from movies m join roles r on r.movie_id=m.id
                 join actors a on r.actor_id=a.id 
@@ -42,7 +43,10 @@
                 where m3.id=r4.movie_id and r4.actor_id='".$actorid."')))
                 )
                 limit 1;";
-                
+                // this query is the 1st degree of separation one, where it searches for movies that both of these actors have been in together.
+                // we use this query to see if there is 1st degree
+                // if so, then we know this actor can't have second 
+                // degree as well. So we then return that there is no 2nd degree. ELSE we check to see if there is second degree and not 3rd degree+.
                 $query2 =  "SELECT * FROM movies m JOIN roles r ON r.movie_id = m.id JOIN actors a ON r.actor_id = a.id JOIN roles rr ON rr.movie_id = m.id JOIN actors aa ON rr.actor_id = aa.id WHERE r.movie_id = rr.movie_id AND r.actor_id = '" . $actorid . "' AND rr.actor_id = " . $kevinsid . " ORDER BY m.year DESC, m.name ASC";
                 
                 $stmt2 = $conn->prepare($query2);
