@@ -29,8 +29,13 @@
                     echo "Actor " . $firstname . " " . $lastname . " not found";
                     exit;
                 }
-                // this query looks does 1st degree of separation search on all of the actors who worked with kevin bacon
-                // and it also queries all people whose movies intersect with the given actor from the _GET method to get the second degree of separation.
+                // this query will select the actors that are a bridge between kevin bacon and 
+                // the actor given from user input. It will first do 1st degree search with 
+                // the actor given and actors who are in movies that kevin bacon is not in.
+                // then it will find the actor that has a movie with kevin bacon and the movie
+                // that the actor w/ kevin bacon has with the user given actor. If the selection table
+                // is populated, then we know that there is 2 degrees of separation. If it is not populated
+                // then there is no 2 degree of separation. 
                 $query = "select distinct a.id, a.first_name, a.last_name, m.name
                 from movies m
                 join roles r on m.id=r.movie_id
