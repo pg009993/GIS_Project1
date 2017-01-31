@@ -31,50 +31,53 @@
                 }
                 // this query looks does 1st degree of separation search on all of the actors who worked with kevin bacon
                 // and it also queries all people whose movies intersect with the given actor from the _GET method to get the second degree of separation.
-                $query = "select distinct a1.first_name, a1.last_name, m.name, m.year
-                from movies m join roles r on r.movie_id=m.id
-                join actors a on r.actor_id=a.id 
-                join roles r1 on r1.movie_id=m.id
-                join actors a1 on r1.actor_id=a1.id
-                where ((r.movie_id=r1.movie_id)AND(r.actor_id='".$kevinsid."')
-                and (r1.actor_id IN
-                (select r2.actor_id from movies m1, roles r2
-                where r2.movie_id=(Select m3.id from movies m3, roles r4
-                where m3.id=r4.movie_id and r4.actor_id='".$actorid."')))
-                )
-                limit 1;";
-                // this query is the 1st degree of separation one, where it searches for movies that both of these actors have been in together.
-                // we use this query to see if there is 1st degree
-                // if so, then we know this actor can't have second 
-                // degree as well. So we then return that there is no 2nd degree. ELSE we check to see if there is second degree and not 3rd degree+.
-                $query2 =  "SELECT * FROM movies m JOIN roles r ON r.movie_id = m.id JOIN actors a ON r.actor_id = a.id JOIN roles rr ON rr.movie_id = m.id JOIN actors aa ON rr.actor_id = aa.id WHERE r.movie_id = rr.movie_id AND r.actor_id = '" . $actorid . "' AND rr.actor_id = " . $kevinsid . " ORDER BY m.year DESC, m.name ASC";
+                $query = "select distinct a.id, a.first_name, a.last_name, m.name
+                from movies m
+                join roles r on m.id=r.movie_id
+                join actors a on a.id=r.actor_id
+                join roles rr on rr.movie_id =m.id
+                join roles aa on aa.actor_id=rr.actor_id
+                where rr.actor_id='".$kevinsid."'
+                and r.actor_id IN(
+                select a.id
+                from movies m
+                join roles r on m.id=r.movie_id
+                join actors a on a.id=r.actor_id
+                join roles rr on rr.movie_id =m.id
+                join actors aa on aa.id=rr.actor_id
+                where r.movie_id=rr.movie_id
+                and rr.actor_id='".$actorid."'
+                and r.movie_id NOT IN(
+                select m1.id from movies m1, roles r1, actors a1
+                where m1.id=r1.movie_id and r1.actor_id=a1.id
+                and r1.actor_id='".$kevinsid."')
+                and r.actor_id not in(select distinct m2.id from movies m2, roles r2, actors a2
+                where m2.id=r2.movie_id and r2.actor_id=a2.id
+                and r2.actor_id='".$kevinsid."'));";
+
+
                 
-                $stmt2 = $conn->prepare($query2);
-                $stmt2->execute();
-                $result2 = $stmt2->setFetchMode(PDO::FETCH_ASSOC);
-                $numRows2 = $stmt2->rowCount();
-                
-                $stmt = $conn->prepare($query);
+                $stmt= $conn->prepare($query);
                 $stmt->execute();
                 $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
                 $numRows = $stmt->rowCount();
-                if($numRows2 > 0){
-                    
-                    echo 'There is no 2 degree of separation.';
-                    } else{
+                if($numRows==0){    
+                echo 'There is no 2 degree of separation.';
+                } 
+                else{
                     while($row = $stmt->fetch()){
-                            echo ''.$firstname. ' '. 
-                         $lastname. ' is within 2 degrees of
-                                separation with KB!';     
+                        echo ''.$firstname. ' '. 
+                        $lastname. ' is within 2 degrees of
+                        separation with KB!';     
                     }
-            }
+                }
                 
                 
             } catch (PDOException $e) {
                 die('Database connection failed: ' . $e->getMessage());
             }
             $conn = null;
-            ?>
+        ?>
     </div>
 </body>
 
